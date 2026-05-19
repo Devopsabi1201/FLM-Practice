@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Nebula Studio | Modern Sample Page</title>
+  <!-- Google Fonts & simple CSS reset -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f9fafc 0%, #edf2f7 100%);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      color: #1a2c3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* custom font fallback */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap');
+
+    /* container utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* header & navigation */
+    .site-header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 20px rgba(0, 0, 0, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #1E3C72, #2A5298);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e4e;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #2a5298;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #2a5298;
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      background: transparent;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: #2a5298;
+      color: white !important;
+      border-color: #2a5298;
+    }
+
+    /* hero section */
+    .hero {
+      padding: 4rem 0 5rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #0f2b3d, #1e4a76);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 680px;
+      margin: 1.25rem auto 0;
+      color: #334e68;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #e9f0fc;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e4a76;
+      margin-bottom: 1.2rem;
+    }
+
+    /* card grid */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 2rem 0 1.5rem 0;
+      letter-spacing: -0.01em;
+      border-left: 5px solid #2a5298;
+      padding-left: 1.2rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem;
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 40px -12px rgba(0, 0, 0, 0.12);
+      border-color: rgba(42, 82, 152, 0.2);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: #4a5c6c;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #eef2ff;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #2a5298;
+    }
+
+    /* feature section with two columns */
+    .feature-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+      margin: 4rem 0;
+      background: white;
+      border-radius: 48px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9edf2;
+    }
+
+    .feature-text {
+      flex: 1.2;
+    }
+
+    .feature-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .feature-text p {
+      color: #3b5a78;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1.5rem 0 0;
+    }
+
+    .stat {
+      text-align: left;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #1e3c72;
+    }
+
+    .feature-image {
+      flex: 1;
+      background: linear-gradient(125deg, #d9e6f5, #c8daf0);
+      border-radius: 32px;
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      font-weight: 600;
+      color: #1e2f47;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5), 0 6px 14px rgba(0,0,0,0.05);
+    }
+
+    /* testimonial section */
+    .testimonial {
+      background: #ffffffdd;
+      backdrop-filter: blur(4px);
+      border-radius: 40px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .testimonial p {
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 450;
+      color: #1f3b4c;
+    }
+
+    .author {
+      margin-top: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background: #2a5298;
+      border-radius: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    /* form section */
+    .contact-form {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem 2rem 2.5rem;
+      margin: 3rem 0 4rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid #cfdfed;
+      border-radius: 24px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.2s;
+      background: #fefefe;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #2a5298;
+      box-shadow: 0 0 0 3px rgba(42,82,152,0.15);
+    }
+
+    .btn-primary {
+      background: #1e3c72;
+      border: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .btn-primary:hover {
+      background: #2a5298;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(42,82,152,0.25);
+    }
+
+    /* footer */
+    footer {
+      background: #0f2027;
+      color: #cbd5e0;
+      padding: 2rem 0;
+      margin-top: 2rem;
+      border-radius: 32px 32px 0 0;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: #b9d0e7;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 0 20px;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .navbar {
+        flex-direction: column;
+      }
+      .feature-row {
+        flex-direction: column;
+        padding: 1.8rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <a href="#" class="logo">✦ Nebula Studio</a>
+      <div class="nav-links">
+        <a href="#">Work</a>
+        <a href="#">Approach</a>
+        <a href="#">Insights</a>
+        <a href="#" class="btn-outline">Contact</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="hero-badge">✨ Design + Innovation ✨</div>
+      <h1>Crafting digital experiences<br>that feel like magic.</h1>
+      <p>We blend intuitive design, performant code, and human-centric strategy to build products people love. Ready to elevate your digital presence?</p>
+    </section>
+
+    <!-- Cards grid - sample content -->
+    <div>
+      <h2 class="section-title">What we deliver</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Visual Identity</h3>
+          <p>Memorable brand systems, fluid design languages, and pixel-perfect UI that tells your story across all touchpoints.</p>
+          <span class="tag">Branding</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Interactive Dev</h3>
+          <p>Fast, accessible, and modern web experiences. From micro-interactions to full-stack applications, we craft code with care.</p>
+          <span class="tag">Engineering</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">📈</div>
+          <h3>Growth Strategy</h3>
+          <p>Data-driven roadmaps, conversion optimization, and product-led growth tactics to scale your impact.</p>
+          <span class="tag">Analytics</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Design Sprints</h3>
+          <p>Rapid prototyping and collaborative workshops that turn ambiguous ideas into validated solutions.</p>
+          <span class="tag">Workshops</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature row: stats + story -->
+    <div class="feature-row">
+      <div class="feature-text">
+        <h2>Where clarity meets velocity</h2>
+        <p>Over the last 5 years, we’ve partnered with startups, scale-ups, and changemakers to launch products that define categories. Our iterative design-to-code pipeline reduces time-to-market by 40% while keeping quality exceptional.</p>
+        <div class="feature-stats">
+          <div class="stat">
+            <div class="stat-number">98%</div>
+            <div>client retention</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">120+</div>
+            <div>projects shipped</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">16</div>
+            <div>global awards</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-image">
+        <span>⚡ synergy ⚡</span>
+      </div>
+    </div>
+
+    <!-- Testimonial card -->
+    <div class="testimonial">
+      <p>“Nebula Studio didn’t just redesign our platform — they reimagined the entire user journey. The team’s blend of technical depth and design intuition is rare. Our engagement rate doubled within 3 months.”</p>
+      <div class="author">
+        <div class="avatar">JD</div>
+        <div><strong>Jordan Ellis</strong> — CTO, Lumina Health</div>
+      </div>
+    </div>
+
+    <!-- Sample Form / contact section -->
+    <div class="contact-form" id="contact">
+      <h2 class="section-title" style="border-left-color: #5f9bd5; margin-top: 0;">Let’s collaborate</h2>
+      <p style="margin-bottom: 1.5rem;">Have a project in mind? Drop us a note, and we'll get back to you within 24h.</p>
+      <form id="sampleForm" action="#" method="post">
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Alex Morgan" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="hello@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="3" placeholder="Tell us about your vision..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Send message →</button>
+        <p id="formFeedback" style="margin-top: 1rem; font-size: 0.85rem; color: #2a6291;"></p>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div>© 2026 Nebula Studio — innovation lab</div>
+      <div class="footer-links">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- simple JS for form demo (non intrusive, just preview feedback) -->
+<script>
+  (function() {
+    const form = document.getElementById('sampleForm');
+    const feedback = document.getElementById('formFeedback');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        if (!name || !email) {
+          feedback.textContent = '❌ Please fill in both name and email.';
+          feedback.style.color = '#c2410c';
+          return;
+        }
+        // Simulate success message — no actual backend
+        feedback.innerHTML = '✨ Thanks, ' + name + '! Your message has been received. We’ll reach out soon.';
+        feedback.style.color = '#2b6e3c';
+        form.reset();   // optional: resets fields after demo
+        setTimeout(() => {
+          feedback.style.opacity = '0.8';
+        }, 100);
+      });
+    }
+  })();
+</script>
+
+<!-- Optional: tiny script for smooth scroll if needed, but it's subtle -->
+</body>
+</html>
